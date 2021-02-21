@@ -7,3 +7,5 @@ A simple framework (built on Express.JS) that supports Class Structure with Type
 ```bash
 npm start
 ```
+
+Then goto https://localhost:3000/helloworld or https://localhost:3000/dashboard for seeing.
