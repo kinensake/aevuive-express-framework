@@ -1,4 +1,4 @@
-import express, { Application, Response, Request, Router } from "express";
+import express, { Application, Response, Request, Router, NextFunction } from "express";
 import { ClassControllerType } from "./common/types";
 
 export class Aevuive {
@@ -13,6 +13,30 @@ export class Aevuive {
 			this.instance = new Aevuive();
 		}
 		return this.instance;
+	}
+
+	set(setting: string, value: any): void {
+		this.app.set(setting, value);
+	}
+
+	disable(setting: string): void {
+		this.app.disable(setting);
+	}
+
+	enable(setting: string): void {
+		this.app.enable(setting)
+	}
+
+	disabled(setting: string): boolean {
+		return this.app.disabled(setting);
+	}
+
+	enabled(setting: string): boolean {
+		return this.app.enabled(setting);
+	}
+
+	listen(port: number, callback?: () => void): void {
+		this.app.listen(port, callback);
 	}
 
 	applyController(controller: new (...args: any[]) => any): void {
@@ -33,7 +57,9 @@ export class Aevuive {
 		}
 	}
 
-	listen(port: number, callback?: () => void): void {
-		this.app.listen(port, callback);
+	applyMiddleware(
+		middleware: (req: Request, res: Response, next: NextFunction) => any 
+	) {
+		this.app.use(middleware);
 	}
 }
